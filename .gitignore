@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Nginx temp files
+nginx/build/
+
+# generated k8s files
+k8s
