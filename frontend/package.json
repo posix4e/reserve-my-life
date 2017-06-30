@@ -4,15 +4,22 @@
   "private": true,
   "dependencies": {
     "react": "^15.6.1",
+    "react-datepicker": "^0.48.0",
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
+    "eslint-config-kentcdodds": "^12.4.1",
     "react-scripts": "1.0.7"
   },
   "scripts": {
+    "lint": "eslint src",
+    "precommit": "npm run lint",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
   }
 }
