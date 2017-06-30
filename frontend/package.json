@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "promise-polyfill": "^6.0.2",
     "react": "^15.6.1",
     "react-datepicker": "^0.48.0",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "setasap": "^2.0.0"
   },
   "devDependencies": {
     "eslint-config-kentcdodds": "^12.4.1",
