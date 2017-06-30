@@ -1,8 +1,10 @@
 #!/bin/bash
 set -exu
 
-LOADBALNCER=1.1.1.1
+LOADBALNCER=104.155.187.117
 NAMESPACE=staging-e
+
+gcloud container clusters get-credentials cluster-1 --zone us-central1-a
 
 bash ./bin/push_to_dockerhub
 
