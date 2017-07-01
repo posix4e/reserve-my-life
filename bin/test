@@ -1,0 +1,23 @@
+#!/bin/bash
+set -exu
+# A big everything test where we
+# - Run local tests 
+# - Deploy staging and hit with curl
+# - Optionally deploy to production if that's a thing
+
+(cd frontend && npm install && npm run test && npm run build)
+# This can be used by something like travis to do production installs as well!
+./bin/dev
+./bin/stop
+
+./bin/staging 
+until curl http://35.188.144.93
+    do echo "Waiting on nginx"
+    sleep 1
+done
+
+until curl http://35.188.144.93/api
+    do echo "Waiting on backend"
+    sleep 1
+done
+
