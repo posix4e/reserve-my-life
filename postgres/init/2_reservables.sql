@@ -1,5 +1,9 @@
-CREATE TABLE api.reservables (name varchar(16), description text);
+CREATE TABLE api.reservables (
+    id INTEGER primary key,
+    name varchar(16) UNIQUE,
+    description text NOT NULL
+);
 GRANT ALL PRIVILEGES ON TABLE api.reservables TO anon;
-INSERT INTO api.reservables VALUES ('Ole Miss', 'A 2006 toyota tundra se');
-INSERT INTO api.reservables VALUES ('Triangle Room', 'An upstairs loft in the main space of dovetail');
-INSERT INTO api.reservables VALUES ('Crawl Space', 'The classic Dore crawl space');
+INSERT INTO api.reservables VALUES (1, 'Ole Miss', 'A 2006 toyota tundra se');
+INSERT INTO api.reservables VALUES (2, 'Triangle Room', 'An upstairs loft in the main space of dovetail');
+INSERT INTO api.reservables VALUES (3, 'Crawl Space', 'The classic Dore crawl space');
