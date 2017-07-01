@@ -10,7 +10,6 @@
     "kentcdodds/import/best-practices",
     "kentcdodds/import/possible-errors",
     "kentcdodds/react",
-    "kentcdodds/webpack",
   ],
   "rules": {
     "mocha/no-hooks": 0,
