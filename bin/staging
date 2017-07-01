@@ -1,14 +1,18 @@
 #!/bin/bash
 set -exu
 
-LOADBALNCER=35.188.144.93
-NAMESPACE=staging-e
+LOADBALNCER=${LOADBALANCER-"35.188.144.93"} # I created this ip
+NAMESPACE=${NAMESPACE-staging}
+PROJECT=${PROJECT-reserve-my-life}
+REGION=${REGION-us-central1}
+ZONE=${ZONE-us-central1-a}
+CLUSTER=${CLUSTERS-cluster-3}
 
 echo "Configuring gcloud for the staging environment..."
-gcloud config set project reserve-my-life
-gcloud config set compute/region us-central1
-gcloud config set compute/zone us-central1-a
-gcloud container clusters get-credentials cluster-3 --zone us-central1-a
+gcloud config set project ${PROJECT}
+gcloud config set compute/region ${REGION}
+gcloud config set compute/zone ${ZONE}
+gcloud container clusters get-credentials ${CLUSTER} --zone ${ZONE}
 kubectl delete --namespace=${NAMESPACE} pods,services,deployments --all
 kubectl delete namespace ${NAMESPACE} || true
 
