@@ -1,0 +1,5 @@
+#!/bin/sh
+set -exu
+
+docker-compose down
+yes | docker-compose rm
