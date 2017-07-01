@@ -2,6 +2,13 @@ sudo: required
 
 services:
       - docker
-language: node
+language: node_js
+node_js:
+      - 6
+cache:
+      directories:
+              - node_modules
 script:
-    bash bin/test
+    - (cd frontend ; npm test)
+    - (cd frontend ; npm build)
+    - ./bin/test
