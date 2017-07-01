@@ -11,7 +11,6 @@
     "kentcdodds/import/possible-errors",
     "kentcdodds/react",
     "kentcdodds/webpack",
-    "kentcdodds/jsx-a11y"
   ],
   "rules": {
     "mocha/no-hooks": 0,

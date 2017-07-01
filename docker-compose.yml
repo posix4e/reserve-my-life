@@ -16,7 +16,7 @@ services:
     build: backend
     image: posiexampleapp/backend
     ports:
-      - 3001:3000
+      - 3000:3000
     links:
       - db
     environment:

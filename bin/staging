@@ -19,8 +19,11 @@ rm -rf k8s
 mkdir k8s
 pushd k8s
 
+COUNTER=1
 until kubectl create namespace ${NAMESPACE} 
     do echo "Waiting for old delete to succeed"
+    let COUNTER=COUNTER+1
+    sleep $COUNTER
 done
 # generate k8s files for production
 kompose convert -v -f ../docker-compose.yml
