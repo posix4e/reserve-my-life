@@ -9,6 +9,6 @@ cache:
       directories:
               - node_modules
 script:
-    - (cd frontend ; npm test)
+    - (cd frontend ; npm install && npm test)
     - (cd frontend ; npm build)
     - ./bin/test

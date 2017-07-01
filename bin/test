@@ -5,8 +5,6 @@ set -exu
 # - Deploy staging and hit with curl
 # - Optionally deploy to production if that's a thing
 
-(cd frontend && npm install && npm run test && npm run build)
-# This can be used by something like travis to do production installs as well!
 ./bin/dev
 ./bin/stop
 
