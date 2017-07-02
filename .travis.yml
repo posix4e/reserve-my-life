@@ -7,12 +7,29 @@ node_js:
 cache:
   directories:
   - node_modules
+  - "$HOME/google-cloud-sdk/"
 script:
 - "(cd frontend ; npm install && npm test)"
 - "(cd frontend ; npm run build)"
 - "./bin/test"
 before_install:
-- openssl aes-256-cbc -K $encrypted_7abcd5d3cd6b_key -iv $encrypted_7abcd5d3cd6b_iv -in credentials.tar.gz.enc -out credentials.tar.gz -d
+- openssl aes-256-cbc -K $encrypted_7abcd5d3cd6b_key -iv $encrypted_7abcd5d3cd6b_iv
+  -in credentials.tar.gz.enc -out credentials.tar.gz -d
+- sudo pip install docker-compose
+- gcloud version || true
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export
+  CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash > log;
+  fi
+- source /home/travis/google-cloud-sdk/path.bash.inc
+- gcloud version
 - tar -zxvf *.tar.gz
-- env PROJECT=reserve-my-life gcloud config set project ${PROJECT}
+- gcloud config set project reserve-my-life
 - gcloud auth activate-service-account --key-file client-secret.json
+- gcloud components install kubectl
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- curl -L https://github.com/kubernetes-incubator/kompose/releases/download/v0.7.0/kompose-linux-amd64
+  -o kompose; chmod +x kompose; sudo mv kompose /usr/local/bin
+env:
+  global:
+  - secure: OLMtKoHJNuZ8appz2IpxjkYhPPJAMscDe+MiQeBSaYG9bj3QMVb38MVfg0qE9VxfKZbeikW2u+Cd0zcK1rJGmoBgy3eGyLdcFIxtJq+X6v+roR2T/9KlZF0h8/IqwZP5AfWaI1sfkXM4+THN1TcfEvCuNovKXQ2axJDG+RDFqSkhKyhXco6vdMqoPfrrPdDz3Gqrru7yGTkyf753ghUsTb1okvdQWN/Wt7b4R15JAmLvidq+jO3D42XQpsS5GZvVi1S9f8FlpmoZM9kIglFBz9cppagoeKMobxQSAxM1vtc/A8CjPD8j6EmRSpiUKjF/bvpucTC2w5dJRvYbADkP/LYkQXHN8kGXy1MO+HdwPBCwdUVFYSWT9Ws/x4tkJ0hjvGkCUevATPIIdYjAoO1EjUvNOGbLIcsrhcCN/J5ug7qCozRu5c8vK8EkfyBZmc66Hy2iCPP3hncFAtL9JHAGq1cRTWA8coXK11esDGxDmylKnEaAS/XPf2R6klA4ksN+hs9k/iBONQ8/PERipKs80ITitYBBI5WDsHoEUONTZw6VCzuCsOR0HGJsVoM2bJkBo4vLSqte6O807h0N8LXcsGSSN3Idi58vN1s+gUiX5MShdKZDd1DfvkGL/qbed+Lx8IbxPFk0dHznQLai0iVGzORxiJKverYWMytfdQP54WU=
+  - secure: uvrNfF1tPL1VzHqEAyEZFG53AnH1XhF+vrxBgwxtymfcCcDEABEXTVZotHvLqnwhhFc2pn205KRh3qb1p3kXeldwGLIdJxo08E8Srf7H2nVBGWbD3ND2kDeTHkUUCT7LxYs7LSvXqIkbylr0PO5LavCF426UpC8nZFIwFFEx6b7HFaKjdqKoHZUsoN2ha69D5ScfcRPLovwx8lpJE6B0qka2hIpL+gzjPztjoJeCHA+gHTi/E7AUTBnrolMJRZjnX40S2FIArYXc0VKcA8g+oVNEN8nC6UUZ5+s+jmpVE/iUTnewYDcqg6YdA32cLp382tfR9ztMZDw27WgmDKZnfipJ6sCJf0ioX8xLxhDhe1iuPTiL5iicoeOS+JC7NH1IPhpmg2VEg/EoK+2JLeGHifctVp/zvOLoGiFz1Y0hiUA/v6AxFHDyhaS7NTzmryLEpPVtxF7lR6bODpxiKutYCV5mSx+F+vCu1yV7y8WxqiclV/ns/nN+WYBZg+LN2utwIIuof/25x1Cp3FS/lNfix5cuf0UjjvEPI4W22l99Ttm2ghuTJBc4aM3JPW74GHmSuavfZZVuSjsfsOuiZapv7kXZRqv+koKpO84DnA3fnhVvgxi//4KH49YAfjYy9HVJnb2js1zGBXSGtfc6o+3kuHDT1Tc29jtskkbB42v2R3A=

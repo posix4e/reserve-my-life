@@ -6,6 +6,14 @@ set -exu
 # - Optionally deploy to production if that's a thing
 
 ./bin/dev
+until curl http://localhost:8000
+    do echo "Waiting on nginx"
+    sleep 1
+done
+until curl http://localhost:8000/api/
+    do echo "Waiting on nginx"
+    sleep 1
+done
 ./bin/stop
 
 ./bin/staging 
@@ -14,7 +22,7 @@ until curl http://35.188.144.93
     sleep 1
 done
 
-until curl http://35.188.144.93/api
+until curl http://35.188.144.93/api/
     do echo "Waiting on backend"
     sleep 1
 done
