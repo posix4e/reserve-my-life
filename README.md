@@ -4,6 +4,7 @@ I want to lend out my bedroom and car to appropiate users
 # Dev Docs are at
 https://github.com/posix4e/example-app
  - This uses gcloud for deployment to staging you will need gcloud installed
+ - This uses auth0 for authentication and is tied to my account info
 
 
 If you run the frontend only, it will automatically point to the backend in staging.

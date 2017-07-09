@@ -1,43 +1,95 @@
 import React, { Component } from 'react';
-/*eslint-disable import/no-unassigned-import */
-import './App.css';
-
-function getReservables() {
-  if (window.location.hostname === "localhost") {
-    if (window.location.port === '3000') {
-      return 'http://35.188.144.93/api/reservables';
-    }
-  } 
-  return window.location.toString().concat('api/reservables');
-}
+import { Navbar, Button } from 'react-bootstrap';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
 
-    this.state = {
-      loading: true,
-      items: {}
-    };
-    fetch(getReservables())
-        .then(result=>result.json())
-        .then(items=> {
-          this.setState({items});
-          this.setState({loading:false});
-        })
-        /* eslint-disable no-console */
-        .catch(err => console.error('Error ', err.toString()));
-   }
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
+  }
 
   render() {
-    if (!this.state.loading) {
-        return ( <ul> {
-            this.state.items.map(function(item) {
-              return <li key={item.name}><h3>{item.name}</h3><h5>{item.description}</h5></li>
-            })
-          } </ul>)
-    }
-    return(<h1>Loading</h1>);
+    const { isAuthenticated, userHasScopes } = this.props.auth;
+
+    return (
+      <div>
+        <Navbar fluid>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">Auth0 - React</a>
+            </Navbar.Brand>
+            <Button
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, 'home')}
+            >
+              Home
+            </Button>
+            {
+              !isAuthenticated() && (
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.login.bind(this)}
+                  >
+                    Log In
+                  </Button>
+                )
+            }
+            {
+              isAuthenticated() && (
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'profile')}
+                  >
+                    Profile
+                  </Button>
+                )
+            }
+            {
+              isAuthenticated() && (
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'ping')}
+                  >
+                    Ping
+                  </Button>
+                )
+            }
+            {
+              isAuthenticated() && (
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'admin')}
+                  >
+                    Admin
+                  </Button>
+                )
+            }
+            {
+              isAuthenticated() && (
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.logout.bind(this)}
+                  >
+                    Log Out
+                  </Button>
+                )
+            }
+          </Navbar.Header>
+        </Navbar>
+      </div>
+    );
   }
 }
 
