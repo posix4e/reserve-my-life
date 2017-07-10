@@ -5,8 +5,8 @@ LOADBALNCER=${LOADBALANCER-"35.188.144.93"} # I created this ip
 NAMESPACE=${NAMESPACE-staging}
 PROJECT=${PROJECT-reserve-my-life}
 REGION=${REGION-us-central1}
-ZONE=${ZONE-us-central1-a}
-CLUSTER=${CLUSTERS-cluster-3}
+ZONE=${ZONE-us-central1-f}
+CLUSTER=${CLUSTERS-cluster-4}
 
 echo "Configuring gcloud for the staging environment..."
 gcloud config set project ${PROJECT}
