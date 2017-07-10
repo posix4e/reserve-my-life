@@ -4,4 +4,5 @@ CREATE TABLE api.reservations(
     reservables_id INTEGER REFERENCES api.reservables(id),
     UNIQUE(day, reservables_id)
 ); 
-GRANT ALL PRIVILEGES ON TABLE api.reservables TO anon;
+-- TODO switch to author
+GRANT ALL PRIVILEGES ON TABLE api.reservations TO anonymous;

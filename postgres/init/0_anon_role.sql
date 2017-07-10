@@ -1,4 +1,0 @@
-\connect postgres
-CREATE ROLE anon;
-CREATE SCHEMA api;
-GRANT ALL PRIVILEGES ON SCHEMA api TO anon;

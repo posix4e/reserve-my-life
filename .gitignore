@@ -1,4 +1,8 @@
+**.swp
 # Logs
+
+backend/jwt_secret
+
 logs
 *.log
 npm-debug.log*

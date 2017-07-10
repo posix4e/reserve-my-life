@@ -38,5 +38,6 @@ ENV PGRST_DB_URI= \
 # PostgREST reads /etc/postgrest.conf so map the configuration
 # file in when you run this container
 CMD exec postgrest /etc/postgrest.conf
+COPY jwt_secret /jwt_secret
 
 EXPOSE 3000
