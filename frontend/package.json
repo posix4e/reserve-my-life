@@ -3,10 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "dependencies": {
-    "aor-simple-graphql-client": "^0.0.8",
-    "apollo-client": "^1.7.0",
     "auth0-js": "^8.8.0",
-    "graphql-tag": "^2.4.2",
     "history": "^4.6.3",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
@@ -20,6 +17,7 @@
   },
   "scripts": {
     "lint": "eslint src",
+    "precommit": "npm run lint",
     "start": "react-scripts start",
     "build": "env NOD_ENV=prod react-scripts build",
     "test": "react-scripts test --env=jsdom",

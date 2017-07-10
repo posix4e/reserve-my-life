@@ -39,7 +39,9 @@ export default class Auth {
         history.replace('/home');
       } else if (err) {
         history.replace('/home');
+        /* eslint-disable no-console */
         console.log(err);
+        /* eslint-disable no-alert*/
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
@@ -47,7 +49,7 @@ export default class Auth {
 
   setSession(authResult) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify(
+    const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
     // If there is a value on the `scope` param from the authResult,
@@ -60,8 +62,6 @@ export default class Auth {
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     localStorage.setItem('scopes', JSON.stringify(scopes));
-    console.log("id_token:" + JSON.stringify(authResult));
-    console.log("Scopes:" + JSON.stringify(scopes));
     // navigate to the home route
     history.replace('/home');
   }
@@ -75,7 +75,7 @@ export default class Auth {
   }
 
   getProfile(cb) {
-    let accessToken = this.getAccessToken();
+    const accessToken = this.getAccessToken();
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
         this.userProfile = profile;
@@ -98,7 +98,7 @@ export default class Auth {
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
 
@@ -114,7 +114,7 @@ export default class Auth {
     };
 
     if (this.isAuthenticated()) {
-      headers['Authorization'] = 'Bearer ' + this.getAccessToken();
+      headers.Authorization = 'Bearer '.concat(this.getAccessToken());
     }
 
     return fetch(url, { headers, ...options })
@@ -126,7 +126,7 @@ export default class Auth {
     if (response.status >= 200 && response.status < 300) {
       return response;
     } else {
-      let error = new Error(response.statusText);
+      const error = new Error(response.statusText);
       error.response = response;
       throw error;
     }
